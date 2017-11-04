@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.androidannotations.annotations.EBean;
 import org.json.JSONArray;
+import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@EBean
+@Parcel(Parcel.Serialization.BEAN)
 public class Recipe {
     private int id;
     private String name;
@@ -63,5 +65,13 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<String> getIngredientList() {
+        List<String> list = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            list.add(ingredient.getIngredient());
+        }
+        return list;
     }
 }

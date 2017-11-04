@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
@@ -36,12 +38,18 @@ public class MainActivity extends AppCompatActivity {
     @Bean
     RecipeAdapter recipeAdapter;
 
-    List<Recipe> recipes = new ArrayList<>();
+    @InstanceState
+    List<Recipe> recipes;
 
     @AfterViews
-    void afterViews() {
+    void configureActivity() {
         recyclerView.setAdapter(recipeAdapter);
-        getRecipes();
+        if (recipes == null) {
+            getRecipes();
+        } else {
+            recipeAdapter.replaceItems(recipes);
+        }
+
     }
 
     @Background
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     void hideProgress() {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @UiThread

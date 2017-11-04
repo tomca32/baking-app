@@ -3,6 +3,9 @@ package io.tomislav.baking.bakingapp.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.parceler.Parcel;
+
+@Parcel(Parcel.Serialization.BEAN)
 public class Step {
     @JsonProperty("id") private int order;
     private String shortDescription;

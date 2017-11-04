@@ -1,5 +1,8 @@
 package io.tomislav.baking.bakingapp.models;
 
+import org.parceler.Parcel;
+
+@Parcel(Parcel.Serialization.BEAN)
 public class Ingredient {
     private int quantity;
     private String measure;
