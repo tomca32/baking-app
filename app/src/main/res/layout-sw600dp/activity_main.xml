@@ -13,7 +13,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_list"
         android:scrollbars="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:spanCount="3"
+        app:layoutManager="android.support.v7.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
