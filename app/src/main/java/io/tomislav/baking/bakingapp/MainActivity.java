@@ -19,6 +19,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
+import io.tomislav.baking.bakingapp.recyclers.recipe.RecipeAdapter;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {

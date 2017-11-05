@@ -1,4 +1,4 @@
-package io.tomislav.baking.bakingapp;
+package io.tomislav.baking.bakingapp.recyclers.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
