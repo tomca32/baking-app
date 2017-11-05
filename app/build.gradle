@@ -45,6 +45,7 @@ dependencies {
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     compile "org.androidannotations:rest-spring-api:$AAVersion"
+    compile 'com.google.android.exoplayer:exoplayer:r2.4.0'
     compile group: 'com.balysv.materialmenu', name: 'material-menu', version: '2.0.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
 }

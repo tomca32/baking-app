@@ -85,7 +85,9 @@ public class StepListDetailActivity extends AppCompatActivity implements StepLis
     private void updateDetailView() {
         if (detailFragmentContainer == null) return;
 
-        StepDetailFragment fragment = StepDetailFragment_.builder().step(recipe.getSteps().get(selectedStep)).build();
+        StepDetailFragment fragment = StepDetailFragment_.builder()
+                .step(recipe.getSteps().get(selectedStep))
+                .build();
         getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, fragment).commit();
     }
 
