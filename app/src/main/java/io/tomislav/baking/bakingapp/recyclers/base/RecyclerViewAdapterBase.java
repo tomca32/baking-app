@@ -1,5 +1,6 @@
 package io.tomislav.baking.bakingapp.recyclers.base;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,5 +41,9 @@ public abstract class RecyclerViewAdapterBase<T, V extends View> extends Recycle
     public void replaceItems(List<T> newItems) {
         items = newItems;
         notifyDataSetChanged();
+    }
+
+    public static DividerItemDecoration getDivider(RecyclerView recycler) {
+        return new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL);
     }
 }
