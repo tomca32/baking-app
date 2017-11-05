@@ -24,7 +24,7 @@ public class StepItemView extends ConstraintLayout {
     }
 
     public void bind(Step step) {
-        description.setText(step.getShortDescription());
+        description.setText(step.getOrder() + " - " + step.getShortDescription());
     }
 
     public void setOnClickListener(View.OnClickListener l) {
