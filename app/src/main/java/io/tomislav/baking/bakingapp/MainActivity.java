@@ -1,14 +1,12 @@
 package io.tomislav.baking.bakingapp;
 
-import android.content.res.Resources;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
-import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -18,13 +16,14 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
+
+    @Nullable private SimpleIdlingResource idlingResource;
 
     @RestService
     RecipeRestClient recipeClient;
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     void getRecipes() {
         showProgress();
         recipes = recipeClient.getRecipes();
+        setIdlingResourcePassive();
         recipeAdapter.replaceItems(recipes);
         hideProgress();
     }
@@ -70,4 +70,17 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    private void setIdlingResourcePassive() {
+        if (idlingResource != null) {
+            idlingResource.setIdleState(true);
+        }
+    }
+
+    @VisibleForTesting
+    public IdlingResource getIdlingResource() {
+        if (idlingResource == null) {
+            idlingResource = new SimpleIdlingResource();
+        }
+        return idlingResource;
+    }
 }

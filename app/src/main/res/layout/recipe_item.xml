@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/recipe_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
@@ -28,7 +28,7 @@
             android:padding="5dp"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            res:layout_constraintBottom_toBottomOf="@+id/imageView"
+            res:layout_constraintBottom_toBottomOf="@+id/recipe_image"
             res:layout_constraintEnd_toEndOf="parent"
             res:layout_constraintStart_toStartOf="parent"
             tools:text="Recipe Name" />
