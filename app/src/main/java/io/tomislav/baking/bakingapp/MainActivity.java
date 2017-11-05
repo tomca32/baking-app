@@ -14,19 +14,19 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
+import io.tomislav.baking.bakingapp.rest.RecipeClient;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
     @Nullable private SimpleIdlingResource idlingResource;
 
-    @RestService
-    RecipeRestClient recipeClient;
+    @Bean
+    RecipeClient recipeClient;
 
     @ViewById(R.id.recipe_list)
     RecyclerView recyclerView;

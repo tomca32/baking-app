@@ -1,12 +1,7 @@
 package io.tomislav.baking.bakingapp.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.androidannotations.annotations.EBean;
-import org.json.JSONArray;
 import org.parceler.Parcel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Parcel(Parcel.Serialization.BEAN)
@@ -65,13 +60,5 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public List<String> getIngredientList() {
-        List<String> list = new ArrayList<>();
-        for (Ingredient ingredient : ingredients) {
-            list.add(ingredient.getIngredient());
-        }
-        return list;
     }
 }
