@@ -12,11 +12,21 @@ import java.util.List;
 
 @EBean
 public abstract class RecyclerViewAdapterBase<T, V extends View> extends RecyclerView.Adapter<ViewWrapper<V>> {
+    public interface AdapterClickCallback<U> {
+        void adapterClickCallback(U item, int index);
+    }
+
     protected List<T> items = new ArrayList<>();
+
+    protected AdapterClickCallback callback;
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setClickCallback(AdapterClickCallback callback) {
+        this.callback = callback;
     }
 
     @Override

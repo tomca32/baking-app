@@ -1,6 +1,7 @@
 package io.tomislav.baking.bakingapp.recyclers.step;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import org.androidannotations.annotations.EBean;
@@ -25,5 +26,17 @@ public class StepAdapter extends RecyclerViewAdapterBase<Step, StepItemView> {
         StepItemView view = holder.getView();
         Step step = items.get(position);
         view.bind(step);
+        setClickListener(view, step, position);
+    }
+
+    private void setClickListener(View view, final Step step, final int position) {
+        if (callback != null) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callback.adapterClickCallback(step, position);
+                }
+            });
+        }
     }
 }

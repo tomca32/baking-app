@@ -12,10 +12,14 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Step;
+import io.tomislav.baking.bakingapp.recyclers.base.RecyclerViewAdapterBase;
 import io.tomislav.baking.bakingapp.recyclers.step.StepAdapter;
 
 @EFragment(R.layout.fragment_step_list)
-public class StepListFragment extends Fragment {
+public class StepListFragment extends Fragment implements RecyclerViewAdapterBase.AdapterClickCallback<Step>{
+    interface StepClickCallback {
+        void stepClickCallback(Step step, int position);
+    }
 
     @ViewById(R.id.step_list)
     RecyclerView stepList;
@@ -24,9 +28,11 @@ public class StepListFragment extends Fragment {
     StepAdapter stepAdapter;
 
     List<Step> steps;
+    StepClickCallback activityCallback;
 
     @AfterViews
     void configureFragment() {
+        stepAdapter.setClickCallback(this);
         stepList.addItemDecoration(getDivider(stepList));
         stepAdapter.replaceItems(steps);
         stepList.setAdapter(stepAdapter);
@@ -38,5 +44,10 @@ public class StepListFragment extends Fragment {
 
     private DividerItemDecoration getDivider(RecyclerView recycler) {
         return new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL);
+    }
+
+    @Override
+    public void adapterClickCallback(Step item, int position) {
+        activityCallback.stepClickCallback(item, position);
     }
 }
