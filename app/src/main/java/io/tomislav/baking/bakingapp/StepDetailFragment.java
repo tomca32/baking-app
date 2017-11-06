@@ -60,11 +60,24 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     @AfterViews
     public void afterViews() {
         setupTextContent();
-        if (step.getVideoURL().equals("")) {
+        String videoUrl = getVideoUrl();
+        if (videoUrl == null) {
             hidePlayer();
         } else {
-            initializePlayer(step.getVideoURL());
+            initializePlayer(videoUrl);
         }
+    }
+
+    private String getVideoUrl() {
+        String videoUrl = step.getVideoURL();
+        if (videoUrl != null && !videoUrl.equals("")) {
+            return videoUrl;
+        }
+        videoUrl = step.getThumbnailURL();
+        if (videoUrl.contains(".mp4")) {
+            return videoUrl;
+        }
+        return null;
     }
 
     private void setupTextContent() {
