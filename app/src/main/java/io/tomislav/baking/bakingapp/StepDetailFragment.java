@@ -7,12 +7,18 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
@@ -25,7 +31,7 @@ import org.androidannotations.annotations.ViewById;
 import io.tomislav.baking.bakingapp.models.Step;
 
 @EFragment(R.layout.fragment_step_detail)
-public class StepDetailFragment extends Fragment{
+public class StepDetailFragment extends Fragment implements ExoPlayer.EventListener {
     @ViewById(R.id.short_description)
     TextView shortDescription;
 
@@ -63,6 +69,34 @@ public class StepDetailFragment extends Fragment{
         super.onPause();
     }
 
+    @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest) {}
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {}
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {}
+
+    @Override
+    public void onPlayerStateChanged(boolean playWhenReady, int state) {
+        if (state == ExoPlayer.STATE_ENDED){
+            this.playWhenReady = false;
+            this.playbackPosition = 0;
+            player.setPlayWhenReady(false);
+            player.seekTo(0);
+        }
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {}
+
+    @Override
+    public void onPositionDiscontinuity() {}
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {}
+
     private void initializePlayer(String uriString) {
         if (player == null) {
             player = ExoPlayerFactory.newSimpleInstance(
@@ -71,6 +105,7 @@ public class StepDetailFragment extends Fragment{
         }
 
         playerView.setPlayer(player);
+        player.addListener(this);
 
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
