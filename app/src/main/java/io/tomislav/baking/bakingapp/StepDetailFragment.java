@@ -1,8 +1,10 @@
 package io.tomislav.baking.bakingapp;
 
+import android.app.Dialog;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -53,13 +55,21 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     @InstanceState
     boolean playWhenReady;
 
+    boolean landscapePhone = false;
+
     @AfterViews
     public void afterViews() {
-        shortDescription.setText(step.getShortDescription());
+        setupTextContent();
         if (step.getVideoURL().equals("")) {
             hidePlayer();
         } else {
             initializePlayer(step.getVideoURL());
+        }
+    }
+
+    private void setupTextContent() {
+        if (!landscapePhone) {
+            shortDescription.setText(step.getShortDescription());
         }
     }
 
@@ -113,6 +123,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         Uri uri = Uri.parse(uriString);
         MediaSource mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, false);
+        if (landscapePhone) {
+            setFullScreen();
+        }
     }
 
     private MediaSource buildMediaSource(Uri uri) {
@@ -133,5 +146,21 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             player.release();
             player = null;
         }
+    }
+
+    private void setFullScreen() {
+        Dialog fullScreenDialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                |View.SYSTEM_UI_FLAG_FULLSCREEN
+                |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                |View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                |View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                |View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        ((ViewGroup)playerView.getParent()).
+
+            removeView(playerView);
+        fullScreenDialog.addContentView(playerView,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
+        fullScreenDialog.show();
     }
 }
