@@ -37,6 +37,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     @ViewById(R.id.short_description)
     TextView shortDescription;
 
+    @ViewById(R.id.description)
+    TextView description;
+
     @ViewById(R.id.video_view)
     SimpleExoPlayerView playerView;
 
@@ -83,6 +86,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     private void setupTextContent() {
         if (!landscapePhone) {
             shortDescription.setText(step.getShortDescription());
+            description.setText(step.getDescription());
         }
     }
 
