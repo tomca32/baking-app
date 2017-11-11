@@ -44,8 +44,15 @@ class DaoService {
                 List<Ingredient> ingredients = new ArrayList<>();
                 List<Step> steps = new ArrayList<>();
                 for (Recipe recipe : recipes) {
-                    ingredients.addAll(recipe.getIngredients());
-                    steps.addAll(recipe.getSteps());
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        ingredient.setRecipeId(recipe.getId());
+                        ingredients.add(ingredient);
+                    }
+
+                    for (Step step : recipe.getSteps()) {
+                        step.setRecipeId(recipe.getId());
+                        steps.add(step);
+                    }
                 }
                 overwriteSteps(steps);
                 overwriteIngredients(ingredients);

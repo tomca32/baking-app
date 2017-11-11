@@ -22,12 +22,12 @@ public class Step {
     private String videoURL;
     private String thumbnailURL;
 
-    private long recipeId;
+    private Long recipeId = null;
 
 
-    @Generated(hash = 1226902408)
+    @Generated(hash = 768245809)
     public Step(Long id, int order, String shortDescription, String description,
-            String videoURL, String thumbnailURL, long recipeId) {
+            String videoURL, String thumbnailURL, Long recipeId) {
         this.id = id;
         this.order = order;
         this.shortDescription = shortDescription;
@@ -82,19 +82,19 @@ public class Step {
         this.thumbnailURL = thumbnailURL;
     }
 
-    public long getRecipeId() {
-        return this.recipeId;
-    }
-
-    public void setRecipeId(long recipeId) {
-        this.recipeId = recipeId;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
     public Long getId() {
         return this.id;
+    }
+
+    public Long getRecipeId() {
+        return this.recipeId;
+    }
+
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
     }
 }

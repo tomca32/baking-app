@@ -14,14 +14,14 @@ public class Ingredient {
     @JsonIgnore
     private Long id = null;
 
-    private long recipeId;
+    private Long recipeId = null;
 
     private int quantity;
     private String measure;
     private String ingredient;
 
-    @Generated(hash = 1051418641)
-    public Ingredient(Long id, long recipeId, int quantity, String measure,
+    @Generated(hash = 1676518487)
+    public Ingredient(Long id, Long recipeId, int quantity, String measure,
             String ingredient) {
         this.id = id;
         this.recipeId = recipeId;
@@ -58,19 +58,19 @@ public class Ingredient {
         this.ingredient = ingredient;
     }
 
-    public long getRecipeId() {
-        return this.recipeId;
-    }
-
-    public void setRecipeId(long recipeId) {
-        this.recipeId = recipeId;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
     public Long getId() {
         return this.id;
+    }
+
+    public Long getRecipeId() {
+        return this.recipeId;
+    }
+
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
     }
 }
