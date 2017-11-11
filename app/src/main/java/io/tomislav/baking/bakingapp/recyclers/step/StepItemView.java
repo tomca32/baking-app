@@ -2,7 +2,6 @@ package io.tomislav.baking.bakingapp.recyclers.step;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
-import android.view.View;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.EViewGroup;
@@ -16,18 +15,17 @@ public class StepItemView extends ConstraintLayout {
     @ViewById(R.id.description)
     TextView description;
 
-    @ViewById(R.id.step_container)
-    ConstraintLayout stepContainer;
-
     public StepItemView(Context context) {
         super(context);
     }
 
-    public void bind(Step step) {
-        description.setText(step.getOrder() + " - " + step.getShortDescription());
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        getLayoutParams().width = LayoutParams.MATCH_PARENT;
     }
 
-    public void setOnClickListener(View.OnClickListener l) {
-        stepContainer.setOnClickListener(l);
+    public void bind(Step step) {
+        description.setText(step.getOrder() + " - " + step.getShortDescription());
     }
 }

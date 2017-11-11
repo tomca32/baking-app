@@ -92,6 +92,6 @@ public class MainActivity extends AppCompatActivity {
         DaoSession daoSession = ((App) getApplication()).getDaoSession();
         RecipeDao recipeDao = daoSession.getRecipeDao();
 
-        recipeDao.insertInTx(recipes);
+        recipeDao.insertOrReplaceInTx(recipes);
     }
 }
