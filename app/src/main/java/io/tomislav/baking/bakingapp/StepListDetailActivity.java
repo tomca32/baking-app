@@ -44,6 +44,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
     @AfterViews
     public void afterViews() {
         super.afterViews();
+        toolbar.setTitle(recipe.getName());
         updateTabletDetailView();
     }
 
@@ -55,7 +56,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
 
     private void updateDetailView() {
         if (detailFragmentContainer == null) {
-            StepDetailActivity_.intent(this).ingredients(ingredients).step(recipe.getSteps().get(selectedStep)).start();
+            StepDetailActivity_.intent(this).ingredients(ingredients).step(recipe.getSteps().get(selectedStep)).recipeName(recipe.getName()).start();
             return;
         }
         updateTabletDetailView();

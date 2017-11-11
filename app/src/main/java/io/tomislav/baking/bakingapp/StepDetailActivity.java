@@ -19,6 +19,10 @@ public class StepDetailActivity extends DrawerActivity {
     @Extra("step")
     Step step;
 
+    @InstanceState
+    @Extra("recipeName")
+    String recipeName;
+
     @ViewById(R.id.landscape_step_detail)
     FrameLayout landscapeFrame;
 
@@ -28,6 +32,7 @@ public class StepDetailActivity extends DrawerActivity {
         if (landscapeFrame == null) {
             super.afterViews();
         }
+        toolbar.setTitle(recipeName);
     }
 
     @Override
