@@ -18,9 +18,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.List;
 
-import io.tomislav.baking.bakingapp.models.DaoSession;
 import io.tomislav.baking.bakingapp.models.Recipe;
-import io.tomislav.baking.bakingapp.models.RecipeDao;
 import io.tomislav.baking.bakingapp.recyclers.recipe.RecipeAdapter;
 
 @EActivity(R.layout.activity_main)
@@ -40,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     @Bean
     RecipeAdapter recipeAdapter;
 
+    @Bean
+    DaoService daoService;
+
     @InstanceState
     List<Recipe> recipes;
 
@@ -57,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
     @Background
     void getRecipes() {
         showProgress();
-        recipes = recipeClient.getRecipes();
-        updateRecipes(recipes);
+        List<Recipe> recipes = getAllRecipesFromDb();
+        if (recipes.size() == 0) {
+            recipes = recipeClient.getRecipes();
+            daoService.overwriteRecipes(recipes);
+        }
         setIdlingResourcePassive();
         recipeAdapter.replaceItems(recipes);
         hideProgress();
@@ -88,10 +92,7 @@ public class MainActivity extends AppCompatActivity {
         return idlingResource;
     }
 
-    private void updateRecipes(List<Recipe> recipes) {
-        DaoSession daoSession = ((App) getApplication()).getDaoSession();
-        RecipeDao recipeDao = daoSession.getRecipeDao();
-
-        recipeDao.insertOrReplaceInTx(recipes);
+    private List<Recipe> getAllRecipesFromDb() {
+        return daoService.getRecipeDao().loadAll();
     }
 }

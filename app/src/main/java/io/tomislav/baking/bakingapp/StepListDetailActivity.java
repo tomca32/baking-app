@@ -36,7 +36,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
         super.onAttachFragment(fragment);
         if (fragment instanceof StepListFragment_) {
             StepListFragment_ stepFragment = (StepListFragment_) fragment;
-            stepFragment.setSteps(recipe.getSteps());
+            stepFragment.setRecipeId(recipe.getId());
             stepFragment.activityCallback = this;
         }
     }

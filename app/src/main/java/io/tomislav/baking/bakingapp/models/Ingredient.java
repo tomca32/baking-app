@@ -10,9 +10,9 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 @Parcel(Parcel.Serialization.BEAN)
 public class Ingredient {
-    @Id
+    @Id(autoincrement = true)
     @JsonIgnore
-    private long id;
+    private Long id = null;
 
     private long recipeId;
 
@@ -20,8 +20,8 @@ public class Ingredient {
     private String measure;
     private String ingredient;
 
-    @Generated(hash = 1906667976)
-    public Ingredient(long id, long recipeId, int quantity, String measure,
+    @Generated(hash = 1051418641)
+    public Ingredient(Long id, long recipeId, int quantity, String measure,
             String ingredient) {
         this.id = id;
         this.recipeId = recipeId;
@@ -58,19 +58,19 @@ public class Ingredient {
         this.ingredient = ingredient;
     }
 
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getRecipeId() {
         return this.recipeId;
     }
 
     public void setRecipeId(long recipeId) {
         this.recipeId = recipeId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }
