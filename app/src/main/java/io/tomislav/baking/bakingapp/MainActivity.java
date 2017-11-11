@@ -3,6 +3,7 @@ package io.tomislav.baking.bakingapp;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     @ViewById(R.id.recipe_list)
     RecyclerView recyclerView;
 
+    @ViewById(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     @ViewById(R.id.progress_bar)
     View progressBar;
 
@@ -52,13 +56,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             recipeAdapter.replaceItems(recipes);
         }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {refresh();}
+        });
 
     }
 
     @Background
     void getRecipes() {
         showProgress();
-        List<Recipe> recipes = getAllRecipesFromDb();
+        recipes = getAllRecipesFromDb();
         if (recipes.size() == 0) {
             recipes = recipeClient.getRecipes();
             daoService.overwriteRecipes(recipes);
@@ -94,5 +102,13 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Recipe> getAllRecipesFromDb() {
         return daoService.getRecipeDao().loadAll();
+    }
+
+    @Background
+    public void refresh() {
+        recipes = recipeClient.getRecipes();
+        daoService.overwriteRecipes(recipes);
+        recipeAdapter.replaceItems(recipes);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

@@ -17,12 +17,12 @@ import io.tomislav.baking.bakingapp.models.Step;
 import io.tomislav.baking.bakingapp.models.StepDao;
 
 @EBean
-public class DaoService {
+class DaoService {
     @RootContext Context context;
 
 
     public DaoSession getDaoSession() {
-        return ((App) getApplication()).getDaoSession();
+        return getApplication().getDaoSession();
     }
 
     public RecipeDao getRecipeDao() {
