@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 def AAVersion = '4.4.0'
 
@@ -25,6 +26,11 @@ android {
     }
 }
 
+
+greendao {
+    schemaVersion 3
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -48,4 +54,5 @@ dependencies {
     compile 'com.google.android.exoplayer:exoplayer:r2.4.0'
     compile group: 'com.balysv.materialmenu', name: 'material-menu', version: '2.0.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+    compile 'org.greenrobot:greendao:3.2.2'
 }
