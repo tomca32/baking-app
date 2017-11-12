@@ -5,6 +5,8 @@ import android.widget.FrameLayout;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
@@ -21,6 +23,9 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
 
     @Extra("recipe")
     public Recipe recipe;
+
+    @Bean
+    DaoService daoService;
 
     @AfterExtras
     public void afterExtras() {
@@ -46,6 +51,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
         super.afterViews();
         toolbar.setTitle(recipe.getName());
         updateTabletDetailView();
+        setActiveRecipe();
     }
 
     @Override
@@ -70,5 +76,10 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
                 .step(recipe.getSteps().get(selectedStep))
                 .build();
         getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, fragment).commit();
+    }
+
+    @Background
+    void setActiveRecipe() {
+        daoService.updateActiveRecipe(recipe);
     }
 }

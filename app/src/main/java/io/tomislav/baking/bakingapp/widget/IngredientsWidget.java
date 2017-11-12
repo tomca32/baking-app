@@ -1,9 +1,13 @@
-package io.tomislav.baking.bakingapp;
+package io.tomislav.baking.bakingapp.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
+
+import io.tomislav.baking.bakingapp.R;
 
 /**
  * Implementation of App Widget functionality.
@@ -15,6 +19,11 @@ public class IngredientsWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
+
+
+        Intent intent = WidgetClickService_.intent(context).widgetClick().get();
+
+        views.setOnClickPendingIntent(R.id.widget_container, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

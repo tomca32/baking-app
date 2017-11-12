@@ -8,6 +8,8 @@ import org.androidannotations.annotations.RootContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.tomislav.baking.bakingapp.models.ActiveRecipe;
+import io.tomislav.baking.bakingapp.models.ActiveRecipeDao;
 import io.tomislav.baking.bakingapp.models.DaoSession;
 import io.tomislav.baking.bakingapp.models.Ingredient;
 import io.tomislav.baking.bakingapp.models.IngredientDao;
@@ -17,12 +19,15 @@ import io.tomislav.baking.bakingapp.models.Step;
 import io.tomislav.baking.bakingapp.models.StepDao;
 
 @EBean
-class DaoService {
+public class DaoService {
     @RootContext Context context;
+
+    @org.androidannotations.annotations.App
+    App app;
 
 
     public DaoSession getDaoSession() {
-        return getApplication().getDaoSession();
+        return app.getDaoSession();
     }
 
     public RecipeDao getRecipeDao() {
@@ -35,6 +40,10 @@ class DaoService {
 
     public IngredientDao getIngredientDao() {
         return getDaoSession().getIngredientDao();
+    }
+
+    public ActiveRecipeDao getActiveRecipeDao() {
+        return getDaoSession().getActiveRecipeDao();
     }
 
     public void overwriteRecipes(final List<Recipe> recipes) {
@@ -72,7 +81,29 @@ class DaoService {
         getIngredientDao().insertInTx(ingredients);
     }
 
-    private App getApplication() {
-        return ((App) context.getApplicationContext());
+    public void updateActiveRecipe(final long recipeId) {
+        getDaoSession().runInTx(new Runnable() {
+            @Override
+            public void run() {
+                getActiveRecipeDao().deleteAll();
+                ActiveRecipe activeRecipe = new ActiveRecipe();
+                activeRecipe.setActiveRecipeId(recipeId);
+                getActiveRecipeDao().insert(activeRecipe);
+            }
+        });
+    }
+
+    public void updateActiveRecipe(Recipe recipe) {
+        updateActiveRecipe(recipe.getId());
+    }
+
+    public Recipe getActiveRecipe() {
+        ActiveRecipeDao dao = getActiveRecipeDao();
+        List<ActiveRecipe> activeRecipes = dao.loadAll();
+        if (activeRecipes.size() == 0) {
+            return null;
+        }
+        return getRecipeDao().load(activeRecipes.get(0).getActiveRecipeId());
+
     }
 }

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
+        android:name=".App_"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,7 +22,7 @@
         <activity android:name=".StepListDetailActivity_" />
         <activity android:name=".StepDetailActivity_" />
 
-        <receiver android:name=".IngredientsWidget">
+        <receiver android:name=".widget.IngredientsWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -31,6 +31,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
+        <service android:name=".widget.WidgetClickService_" />
     </application>
 
 </manifest>
