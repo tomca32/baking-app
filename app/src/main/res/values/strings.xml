@@ -535,9 +535,6 @@
     "image": ""
   }
 ]</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recipe_image">Recipe Image</string>
     <string name="quantity_label">Quantity:</string>
   <string name="widget_default">You will see the ingredients here when you select a recipe</string>

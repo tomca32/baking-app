@@ -13,7 +13,7 @@ import io.tomislav.baking.bakingapp.MainActivity_;
 import io.tomislav.baking.bakingapp.StepListDetailActivity_;
 import io.tomislav.baking.bakingapp.models.Recipe;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT;
 
 @EIntentService
 public class WidgetClickService extends IntentService {
@@ -40,10 +40,10 @@ public class WidgetClickService extends IntentService {
     }
 
     private void launchMainActivity() {
-        MainActivity_.intent(this).flags(FLAG_ACTIVITY_NEW_TASK).start();
+        MainActivity_.intent(this).flags(FLAG_ACTIVITY_BROUGHT_TO_FRONT).start();
     }
 
     private void launchRecipeActivity(Recipe recipe) {
-        StepListDetailActivity_.intent(this).recipe(recipe).flags(FLAG_ACTIVITY_NEW_TASK).start();
+        StepListDetailActivity_.intent(this).recipe(recipe).flags(FLAG_ACTIVITY_BROUGHT_TO_FRONT).start();
     }
 }

@@ -1,5 +1,8 @@
 package io.tomislav.baking.bakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.widget.FrameLayout;
 
@@ -14,6 +17,8 @@ import org.androidannotations.annotations.ViewById;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
 import io.tomislav.baking.bakingapp.models.Step;
+import io.tomislav.baking.bakingapp.widget.IngredientsWidget;
+import io.tomislav.baking.bakingapp.widget.IngredientsWidget_;
 
 @EActivity(R.layout.activity_step_list_detail)
 public class StepListDetailActivity extends DrawerActivity implements StepListFragment_.StepClickCallback {
@@ -52,6 +57,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
         toolbar.setTitle(recipe.getName());
         updateTabletDetailView();
         setActiveRecipe();
+        updateWidgets();
     }
 
     @Override
@@ -81,5 +87,14 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
     @Background
     void setActiveRecipe() {
         daoService.updateActiveRecipe(recipe);
+    }
+
+    @Background
+    void updateWidgets() {
+        Intent intent = new Intent(this, IngredientsWidget_.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetI‌​ds(new ComponentName(getApplication(), IngredientsWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 }

@@ -7,7 +7,7 @@
     android:padding="@dimen/widget_margin">
 
     <TextView
-        android:id="@+id/currentRecipeTitle"
+        android:id="@+id/activeRecipeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

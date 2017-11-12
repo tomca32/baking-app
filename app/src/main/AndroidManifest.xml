@@ -22,7 +22,7 @@
         <activity android:name=".StepListDetailActivity_" />
         <activity android:name=".StepDetailActivity_" />
 
-        <receiver android:name=".widget.IngredientsWidget">
+        <receiver android:name=".widget.IngredientsWidget_">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
