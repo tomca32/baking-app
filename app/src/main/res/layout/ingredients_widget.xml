@@ -16,7 +16,7 @@
         android:textStyle="bold|italic" />
 
     <ListView
-        android:id="@+id/ingredients_list"
+        android:id="@+id/widget_ingredients_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

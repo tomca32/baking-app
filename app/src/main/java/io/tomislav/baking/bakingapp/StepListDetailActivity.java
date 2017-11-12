@@ -92,7 +92,12 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
     void updateWidgets() {
         Intent intent = new Intent(this, IngredientsWidget_.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetI‌​ds(new ComponentName(getApplication(), IngredientsWidget_.class));
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplication());
+        int[] ids = appWidgetManager.getAppWidgetI‌​ds(new ComponentName(getApplication(), IngredientsWidget_.class));
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.widget_ingredients_list);
+
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         sendBroadcast(intent);
     }

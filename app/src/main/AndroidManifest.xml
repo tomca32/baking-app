@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StepListDetailActivity_" />
+        <activity android:name=".StepListDetailActivity_" android:launchMode="singleTask" />
         <activity android:name=".StepDetailActivity_" />
 
         <receiver android:name=".widget.IngredientsWidget_">
@@ -31,7 +31,11 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
+
         <service android:name=".widget.WidgetClickService_" />
+        <service android:name=".widget.IngredientsRemoteViewsService_"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

@@ -28,12 +28,12 @@ public class IngredientsWidget extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-
         setWidgetTitle(title, views);
-
         Intent intent = WidgetClickService_.intent(context).widgetClick().get();
-
         views.setOnClickPendingIntent(R.id.widget_container, PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        Intent remoteViewsIntent = new Intent(context, IngredientsRemoteViewsService_.class);
+        views.setRemoteAdapter(R.id.widget_ingredients_list, remoteViewsIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
