@@ -60,6 +60,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     boolean landscapePhone = false;
 
+    Dialog fullScreenDialog;
+
     @AfterViews
     public void afterViews() {
         setupTextContent();
@@ -93,6 +95,10 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     @Override
     public void onPause() {
         releasePlayer();
+        if (fullScreenDialog != null) {
+            fullScreenDialog.dismiss();
+            fullScreenDialog = null;
+        }
         super.onPause();
     }
 
@@ -166,7 +172,7 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
     }
 
     private void setFullScreen() {
-        Dialog fullScreenDialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        fullScreenDialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 |View.SYSTEM_UI_FLAG_FULLSCREEN
                 |View.SYSTEM_UI_FLAG_LAYOUT_STABLE
