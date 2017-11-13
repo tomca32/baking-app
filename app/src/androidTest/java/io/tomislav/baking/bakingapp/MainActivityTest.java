@@ -1,5 +1,7 @@
 package io.tomislav.baking.bakingapp;
 
+import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.RecyclerViewActions;
@@ -27,16 +29,16 @@ import static org.hamcrest.CoreMatchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    @Rule public ActivityTestRule<MainActivity_> activityActivityTestRule = new ActivityTestRule<>(MainActivity_.class);
+    @Rule public ActivityTestRule<MainActivity_> activityActivityTestRule = new ActivityTestRule<>(MainActivity_.class, false, false);
 
     private IdlingResource idlingResource;
 
     @Before
     public void before() {
-        MainActivity_ activity = activityActivityTestRule.getActivity();
+        Intent intent = MainActivity_.intent(InstrumentationRegistry.getTargetContext()).useIdleResource(true).get();
+        MainActivity_ activity = activityActivityTestRule.launchActivity(intent);
         idlingResource = activity.getIdlingResource();
         Espresso.registerIdlingResources(idlingResource);
-        ((SimpleIdlingResource) idlingResource).setIdleState(false);
     }
 
     @Test

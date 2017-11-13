@@ -12,6 +12,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -25,7 +26,11 @@ import io.tomislav.baking.bakingapp.recyclers.recipe.RecipeAdapter;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    @Nullable private SimpleIdlingResource idlingResource;
+    @Extra("useIdleResource")
+    boolean useIdleResource;
+
+    @Nullable
+    private SimpleIdlingResource idlingResource;
 
     @RestService
     RecipeRestClient recipeClient;
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     void configureActivity() {
+        if (useIdleResource) {
+            idlingResource = new SimpleIdlingResource();
+            idlingResource.setIdleState(false);
+        }
         recyclerView.setAdapter(recipeAdapter);
         if (recipes == null) {
             getRecipes();
