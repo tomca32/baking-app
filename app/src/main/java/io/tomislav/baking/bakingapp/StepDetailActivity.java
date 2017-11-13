@@ -31,8 +31,8 @@ public class StepDetailActivity extends DrawerActivity {
     public void afterViews() {
         if (landscapeFrame == null) {
             super.afterViews();
+            toolbar.setTitle(recipeName);
         }
-        toolbar.setTitle(recipeName);
     }
 
     @Override
