@@ -25,6 +25,6 @@ public class RecipeAdapter extends RecyclerViewAdapterBase<Recipe, RecipeItemVie
         RecipeItemView view = holder.getView();
         Recipe recipe = items.get(position);
 
-        view.bind(recipe);
+        view.bind(recipe, context);
     }
 }
