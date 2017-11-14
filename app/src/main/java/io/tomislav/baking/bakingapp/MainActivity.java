@@ -1,5 +1,6 @@
 package io.tomislav.baking.bakingapp;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
@@ -21,6 +22,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
+import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
 import io.tomislav.baking.bakingapp.recyclers.recipe.RecipeAdapter;
 
 @EActivity(R.layout.activity_main)
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     @InstanceState
     List<Recipe> recipes;
 
+    @InstanceState
+    Parcelable listState;
+
     @AfterViews
     void configureActivity() {
         if (useIdleResource) {
@@ -60,10 +65,12 @@ public class MainActivity extends AppCompatActivity {
             idlingResource.setIdleState(false);
         }
         recyclerView.setAdapter(recipeAdapter);
+
         if (recipes == null) {
             getRecipes();
         } else {
             recipeAdapter.replaceItems(recipes);
+            RecyclerHelper.restoreRecyclerViewState(listState, recyclerView);
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -124,5 +131,11 @@ public class MainActivity extends AppCompatActivity {
     void updateView() {
         recipeAdapter.replaceItems(recipes);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        listState = recyclerView.getLayoutManager().onSaveInstanceState();
     }
 }

@@ -1,5 +1,6 @@
 package io.tomislav.baking.bakingapp;
 
+import android.os.Parcelable;
 import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
 import io.tomislav.baking.bakingapp.models.Step;
+import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
 import io.tomislav.baking.bakingapp.recyclers.base.RecyclerViewAdapterBase;
 import io.tomislav.baking.bakingapp.recyclers.step.StepAdapter;
 
@@ -50,7 +52,16 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
     @InstanceState
     long recipeId;
 
+    @InstanceState
+    Parcelable listState;
+
     StepClickCallback activityCallback;
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        listState = stepList.getLayoutManager().onSaveInstanceState();
+    }
 
     @AfterViews
     void configureFragment() {
@@ -62,6 +73,7 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
             @Override
             public void onRefresh() {refreshSteps();}
         });
+        RecyclerHelper.restoreRecyclerViewState(listState, stepList);
     }
 
     public void setRecipeId(long recipeId) {
