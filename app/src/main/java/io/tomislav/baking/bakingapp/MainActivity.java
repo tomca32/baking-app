@@ -117,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
     public void refresh() {
         recipes = recipeClient.getRecipes();
         daoService.overwriteRecipes(recipes);
+        updateView();
+    }
+
+    @UiThread
+    void updateView() {
         recipeAdapter.replaceItems(recipes);
         swipeRefreshLayout.setRefreshing(false);
     }

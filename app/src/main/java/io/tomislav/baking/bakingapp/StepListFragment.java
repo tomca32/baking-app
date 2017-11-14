@@ -10,6 +10,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
 
@@ -84,6 +85,11 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
     private void updateSteps() {
         this.steps = daoService.getRecipeDao().load(recipeId).getSteps();
         stepAdapter.replaceItems(steps);
+        updateView();
+    }
+
+    @UiThread
+    void updateView() {
         swipeRefreshLayout.setRefreshing(false);
     }
 }
