@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -23,6 +24,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -42,6 +44,9 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
 
     @ViewById(R.id.video_view)
     SimpleExoPlayerView playerView;
+
+    @ViewById(R.id.step_image)
+    ImageView stepImage;
 
     @FragmentArg("step")
     @InstanceState
@@ -71,6 +76,8 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         } else {
             initializePlayer(videoUrl);
         }
+        setupStepImage();
+
     }
 
     private String getVideoUrl() {
@@ -78,17 +85,18 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
         if (videoUrl != null && !videoUrl.equals("")) {
             return videoUrl;
         }
-        videoUrl = step.getThumbnailURL();
-        if (videoUrl.contains(".mp4")) {
-            return videoUrl;
-        }
         return null;
     }
 
     private void setupTextContent() {
-        if (!landscapePhone) {
-            shortDescription.setText(step.getShortDescription());
-            description.setText(step.getDescription());
+        shortDescription.setText(step.getShortDescription());
+        description.setText(step.getDescription());
+    }
+
+    private void setupStepImage() {
+        String imageUrl = step.getThumbnailURL();
+        if (imageUrl != null && !imageUrl.equals("")) {
+            Picasso.with(getContext()).load(imageUrl).into(stepImage);
         }
     }
 
