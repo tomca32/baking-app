@@ -135,17 +135,17 @@ public class StepDetailFragment extends Fragment implements ExoPlayer.EventListe
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(getContext()),
                     new DefaultTrackSelector(), new DefaultLoadControl());
+            player.addListener(this);
         }
 
         playerView.setPlayer(player);
-        player.addListener(this);
 
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
 
         Uri uri = Uri.parse(uriString);
         MediaSource mediaSource = buildMediaSource(uri);
-        player.prepare(mediaSource, true, false);
+        player.prepare(mediaSource, false, false);
         if (landscapePhone) {
             setFullScreen();
         }

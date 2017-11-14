@@ -54,7 +54,7 @@ public class StepListDetailActivity extends DrawerActivity implements StepListFr
     public void afterViews() {
         super.afterViews();
         toolbar.setTitle(recipe.getName());
-        updateTabletDetailView();
+        if (getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container) == null) updateTabletDetailView();
         setActiveRecipe();
         updateWidgets();
     }
