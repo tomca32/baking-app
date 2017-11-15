@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
         showProgress();
         recipes = getAllRecipesFromDb();
         if (recipes.size() == 0) {
-            recipes = recipesResource.getAndStoreRecipes();
+            recipesResource.getAndStoreRecipes();
+            recipes = getAllRecipesFromDb();
         }
         setIdlingResourcePassive();
         recipeAdapter.replaceItems(recipes);

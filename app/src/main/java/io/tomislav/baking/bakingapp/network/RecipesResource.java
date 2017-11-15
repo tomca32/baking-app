@@ -32,14 +32,12 @@ public class RecipesResource {
         this.context = context;
     }
 
-    public List<Recipe> getAndStoreRecipes() {
+    public void getAndStoreRecipes() {
         if (connectionHelper.isConnected()) {
             List<Recipe> recipes = recipeClient.getRecipes();
             daoService.overwriteRecipes(recipes);
-            return recipes;
         } else {
             showConnectionErrorToast();
-            return null;
         }
     }
 
