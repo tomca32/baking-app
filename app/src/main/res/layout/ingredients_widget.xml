@@ -10,8 +10,8 @@
         android:id="@+id/activeRecipeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textSize="18sp"
+        android:layout_margin="@dimen/margin_medium"
+        android:textSize="@dimen/text_larger"
         android:text="@string/widget_default"
         android:textStyle="bold|italic" />
 

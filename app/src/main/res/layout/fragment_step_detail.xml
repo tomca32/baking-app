@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="@dimen/margin_large"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/margin_medium"
         tools:text="Description of this recipe step." />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/short_description"
-        android:layout_margin="10dp"/>
+        android:layout_margin="@dimen/margin_medium"/>
 
     <ImageView
         android:id="@+id/step_image"

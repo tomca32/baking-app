@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/margin_small"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:res="http://schemas.android.com/apk/res-auto"
-    res:cardElevation="5dp"
-    res:cardCornerRadius="4dp">
+    res:cardElevation="@dimen/small_elevation"
+    res:cardCornerRadius="@dimen/margin_small">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/item_container"
@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/recipe_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/recipe_image_width"
             android:scaleType="centerCrop"
             android:src="@drawable/stock_recipe" />
 
@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:background="#A0000000"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="@dimen/margin_small"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_large"
             res:layout_constraintBottom_toBottomOf="@+id/recipe_image"
             res:layout_constraintEnd_toEndOf="parent"
             res:layout_constraintStart_toStartOf="parent"
@@ -38,10 +38,10 @@
             android:id="@+id/servings_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/margin_medium"
             android:text="@string/servings"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_larger"
             res:layout_constraintBottom_toBottomOf="@+id/recipe_name"
             res:layout_constraintStart_toStartOf="parent"
             res:layout_constraintTop_toBottomOf="parent" />
@@ -50,7 +50,7 @@
             android:id="@+id/servings_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_larger"
             res:layout_constraintBottom_toTopOf="@+id/servings_view"
             res:layout_constraintStart_toEndOf="@+id/servings_view"
             res:layout_constraintTop_toBottomOf="@+id/servings_view"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/steps"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_larger"
             res:layout_constraintBottom_toTopOf="@+id/steps_count"
             res:layout_constraintEnd_toStartOf="@+id/steps_count"
             res:layout_constraintTop_toBottomOf="@+id/steps_count" />
@@ -71,8 +71,8 @@
             android:id="@+id/steps_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textSize="16sp"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:textSize="@dimen/text_larger"
             res:layout_constraintBottom_toBottomOf="@+id/recipe_name"
             res:layout_constraintEnd_toEndOf="parent"
             res:layout_constraintTop_toBottomOf="parent"
