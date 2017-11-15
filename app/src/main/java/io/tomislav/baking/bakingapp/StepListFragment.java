@@ -16,7 +16,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import io.tomislav.baking.bakingapp.models.Recipe;
 import io.tomislav.baking.bakingapp.models.Step;
 import io.tomislav.baking.bakingapp.network.RecipesResource;
 import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
@@ -87,7 +86,7 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
 
     @Background
     public void refreshSteps() {
-        List<Recipe> recipes = recipesResource.getAndStoreRecipes();
+        recipesResource.getAndStoreRecipes();
         updateSteps();
 
     }

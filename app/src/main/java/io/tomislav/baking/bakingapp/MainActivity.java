@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     public void refresh() {
-        recipes = recipesResource.getAndStoreRecipes();
+        recipesResource.getAndStoreRecipes();
+        recipes = getAllRecipesFromDb();
         updateView();
     }
 
