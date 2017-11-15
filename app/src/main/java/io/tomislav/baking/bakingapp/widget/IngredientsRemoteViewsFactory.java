@@ -10,6 +10,7 @@ import io.tomislav.baking.bakingapp.App;
 import io.tomislav.baking.bakingapp.DaoService;
 import io.tomislav.baking.bakingapp.R;
 import io.tomislav.baking.bakingapp.models.Ingredient;
+import io.tomislav.baking.bakingapp.models.Recipe;
 
 public class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -32,7 +33,11 @@ public class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteV
 
     @Override
     public void onDataSetChanged() {
-        ingredients = daoService.getActiveRecipe().getIngredients();
+        Recipe activeRecipe = daoService.getActiveRecipe();
+        if (activeRecipe == null) {
+            return;
+        }
+        ingredients = activeRecipe.getIngredients();
     }
 
     @Override

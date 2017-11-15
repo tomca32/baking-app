@@ -19,7 +19,7 @@ public class App extends Application {
         super.onCreate();
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "recipe-db");
-        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
     }
 
