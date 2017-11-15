@@ -17,11 +17,11 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
+import io.tomislav.baking.bakingapp.network.RecipesResource;
 import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
 import io.tomislav.baking.bakingapp.recyclers.recipe.RecipeAdapter;
 
@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Nullable
     private SimpleIdlingResource idlingResource;
-
-    @RestService
-    RecipeRestClient recipeClient;
 
     @ViewById(R.id.recipe_list)
     RecyclerView recyclerView;
@@ -51,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Bean
     DaoService daoService;
+
+    @Bean
+    RecipesResource recipesResource;
 
     @InstanceState
     List<Recipe> recipes;
@@ -84,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
         showProgress();
         recipes = getAllRecipesFromDb();
         if (recipes.size() == 0) {
-            recipes = recipeClient.getRecipes();
-            daoService.overwriteRecipes(recipes);
+            recipes = recipesResource.getAndStoreRecipes();
         }
         setIdlingResourcePassive();
         recipeAdapter.replaceItems(recipes);
@@ -122,8 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     public void refresh() {
-        recipes = recipeClient.getRecipes();
-        daoService.overwriteRecipes(recipes);
+        recipes = recipesResource.getAndStoreRecipes();
         updateView();
     }
 

@@ -13,12 +13,12 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Recipe;
 import io.tomislav.baking.bakingapp.models.Step;
+import io.tomislav.baking.bakingapp.network.RecipesResource;
 import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
 import io.tomislav.baking.bakingapp.recyclers.base.RecyclerViewAdapterBase;
 import io.tomislav.baking.bakingapp.recyclers.step.StepAdapter;
@@ -40,11 +40,11 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
     @Bean
     StepAdapter stepAdapter;
 
-    @RestService
-    RecipeRestClient recipeClient;
-
     @Bean
     DaoService daoService;
+
+    @Bean
+    RecipesResource recipesResource;
 
     @InstanceState
     List<Step> steps;
@@ -87,8 +87,7 @@ public class StepListFragment extends Fragment implements RecyclerViewAdapterBas
 
     @Background
     public void refreshSteps() {
-        List<Recipe> recipes = recipeClient.getRecipes();
-        daoService.overwriteRecipes(recipes);
+        List<Recipe> recipes = recipesResource.getAndStoreRecipes();
         updateSteps();
 
     }

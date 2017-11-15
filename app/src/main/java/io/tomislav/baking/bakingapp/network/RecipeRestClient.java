@@ -1,4 +1,4 @@
-package io.tomislav.baking.bakingapp;
+package io.tomislav.baking.bakingapp.network;
 
 import org.androidannotations.rest.spring.annotations.Get;
 import org.androidannotations.rest.spring.annotations.Rest;
