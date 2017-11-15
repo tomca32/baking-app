@@ -1,9 +1,13 @@
 package io.tomislav.baking.bakingapp;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
@@ -26,12 +30,16 @@ public class StepDetailActivity extends DrawerActivity {
     @ViewById(R.id.landscape_step_detail)
     FrameLayout landscapeFrame;
 
+    @ViewById(R.id.recipe_button)
+    LinearLayout recipeButton;
+
     @AfterViews
     @Override
     public void afterViews() {
         if (landscapeFrame == null) {
             super.afterViews();
             toolbar.setTitle(recipeName);
+            recipeButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -41,5 +49,12 @@ public class StepDetailActivity extends DrawerActivity {
         StepDetailFragment_ stepDetailFragment = (StepDetailFragment_) fragment;
         stepDetailFragment.step = step;
         stepDetailFragment.landscapePhone = getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    }
+
+    @Click
+    void recipeButton() {
+        Intent stepList = new Intent(this, StepListDetailActivity_.class);
+        stepList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(stepList);
     }
 }

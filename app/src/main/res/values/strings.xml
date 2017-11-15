@@ -538,4 +538,6 @@
     <string name="recipe_image">Recipe Image</string>
     <string name="quantity_label">Quantity:</string>
   <string name="widget_default">You will see the ingredients here when you select a recipe</string>
+    <string name="all_recipes">Back to All Recipes</string>
+    <string name="back_to_recipe">Back to Step List</string>
 </resources>

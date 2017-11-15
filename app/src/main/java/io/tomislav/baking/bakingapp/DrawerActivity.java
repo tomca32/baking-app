@@ -1,5 +1,6 @@
 package io.tomislav.baking.bakingapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Parcelable;
 import android.support.v4.widget.DrawerLayout;
@@ -7,11 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
@@ -36,6 +40,9 @@ public abstract class DrawerActivity extends AppCompatActivity {
     @ViewById(R.id.ingredients_list)
     RecyclerView ingredientsList;
 
+    @ViewById(R.id.all_recipes_button)
+    LinearLayout allRecipesButton;
+
     protected MaterialMenuDrawable materialMenu;
 
     @InstanceState
@@ -59,8 +66,16 @@ public abstract class DrawerActivity extends AppCompatActivity {
         }
     }
 
+    @Click
+    void allRecipesButton() {
+        Intent homeIntent = new Intent(this, MainActivity_.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+
     public void afterViews() {
         setSupportActionBar(toolbar);
+
         materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         toolbar.setNavigationIcon(materialMenu);
         setupDrawer();
@@ -78,6 +93,11 @@ public abstract class DrawerActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     protected void setupDrawer() {
