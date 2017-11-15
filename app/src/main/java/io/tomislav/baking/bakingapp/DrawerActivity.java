@@ -1,6 +1,7 @@
 package io.tomislav.baking.bakingapp;
 
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 import io.tomislav.baking.bakingapp.models.Ingredient;
+import io.tomislav.baking.bakingapp.recyclers.base.RecyclerHelper;
 import io.tomislav.baking.bakingapp.recyclers.ingredient.IngredientAdapter;
 
 import static io.tomislav.baking.bakingapp.recyclers.base.RecyclerViewAdapterBase.getDivider;
@@ -43,8 +45,19 @@ public abstract class DrawerActivity extends AppCompatActivity {
     @Extra("ingredients")
     protected List<Ingredient> ingredients;
 
+    @InstanceState
+    Parcelable listState;
+
     @Bean
     IngredientAdapter ingredientAdapter;
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (ingredientsList != null) {
+            listState = ingredientsList.getLayoutManager().onSaveInstanceState();
+        }
+    }
 
     public void afterViews() {
         setSupportActionBar(toolbar);
@@ -71,6 +84,7 @@ public abstract class DrawerActivity extends AppCompatActivity {
         ingredientsList.setAdapter(ingredientAdapter);
         ingredientsList.addItemDecoration(getDivider(ingredientsList));
         ingredientAdapter.replaceItems(ingredients);
+        RecyclerHelper.restoreRecyclerViewState(listState, ingredientsList);
 
 
         drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
