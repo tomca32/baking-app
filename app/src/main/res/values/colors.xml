@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryText">#FFFFFF</color>
+    <color name="recipe_card_title_background">#A0000000</color>
+    <color name="recipe_card_title">#FFFFFF</color>
+    <color name="widget_background">#FFF</color>
 </resources>
